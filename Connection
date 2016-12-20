@@ -1,0 +1,22 @@
+libname STW "C:\Users\2016";
+%LET dbms = oracle;
+%LET username=******;
+%LET password=******;
+%LET DB=****;
+ 
+PROC SQL;
+  CONNECT TO &dbms AS connect1 (
+       user     = "&username"
+       password = "&password"
+       path     = "&db"
+       PRESERVE_COMMENTS
+     );
+libname mydblib oracle user="&username" password="&password" path="&DB";
+PROC SQL;
+CREATE TABLE mydblib.rs_batch1_upload
+as
+select * from STW.rs_batch1_upload_v2;
+quit;
+
+
+
