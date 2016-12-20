@@ -18,5 +18,18 @@ as
 select * from STW.rs_batch1_upload_v2;
 quit;
 
+%let dbms = oracle;
+%let orapath=PHXDWHPRD;
+%let pwdomain = OracleAuth;
 
+*Libname crmmart &dbms path=&orapath schema=CRMMART authdomain=&pwdomain;
+libname mydblib &dbms path=&orapath schema=UDAYKAMA authdomain=&pwdomain;
+
+%let table1 = DELTA_XOVER_STEP0;
+
+options compress=yes;
+
+data test;
+set mydblib.&table1;
+run;
 
